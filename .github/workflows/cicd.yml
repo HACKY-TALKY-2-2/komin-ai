@@ -12,6 +12,12 @@ jobs:
     - name: checkout
       uses: actions/checkout@master
 
+    - name: setting secrets
+      run: |
+        echo ${{ secrets.OPENAI_API_KEY }} >> .env
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
     - uses: mr-smithers-excellent/docker-build-push@v6  # Docker Image Build
       name: Build & push Docker image
       with:
