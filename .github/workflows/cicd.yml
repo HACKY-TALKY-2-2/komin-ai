@@ -41,12 +41,10 @@ jobs:
 
     - name: executing remote ssh commands using password # TODO: 서버에 접속하여 Docker image pull 및 컨테이너 시작
       uses: appleboy/ssh-action@master
-      env:
-        DEPLOY_USERNAME: jsk
       with:
         host: ${{ secrets.HOST }}
         username: ubuntu
         key: ${{ secrets.KEY }}
         script: |
           docker pull invalidid56/komin
-          docker run -d -p 80:8000 --name komin invalidid56/komin
+          docker run -d -p 80:8000 invalidid56/komin
