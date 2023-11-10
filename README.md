@@ -1,7 +1,7 @@
 # Komin.AI - Dev Guideline
 
 ## See Also
-- [komin-crawler]()
+- [komin-crawler](https://github.com/JayM-Oh/komin-Crawler)
 
 ## Requirements
 - Python 3.11
@@ -47,6 +47,4 @@ make revision DESCRIPTION="Description For Revision"
 
 ---
 # Komin.AI API Reference
-## Dashboard
-
-## Analyze
+[Swagger Docs](http://ec2-3-39-46-151.ap-northeast-2.compute.amazonaws.com/docs#/)
