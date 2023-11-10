@@ -1,11 +1,12 @@
 import os
 
+import openai
 from fastapi import APIRouter, Depends
 from data.database import get_db
 from data.models import Entity, News
 from starlette import status
 from sqlalchemy.orm import Session
-from openai import OpenAI
+import openai
 import os
 from entity.dashboard_entity import Dashboard, EntityCreate, News
 
@@ -13,18 +14,17 @@ from entity.dashboard_entity import Dashboard, EntityCreate, News
 router = APIRouter(prefix='/analyze')
 
 
-client = OpenAI(
-        os.environ.get("OPENAI_API_KEY")
-    )
+openai.api_key = os.getenv('OPENAI_API_KEY')
+
 def generate_response(prompt, model="gpt-4-1106-preview"):
     messages = [{"role": "user", "content": prompt}]
-    response = client.chat.completions.create(
+    response = openai.chat.completions.create(
         model=model,
         messages=messages,
         temperature=0,
     )
     return response.choices[0].message.content
-@router.get("/", summary='')
+@router.get("/industrial", summary='')
 def get_industrial_summary(query: str):
     result = generate_response("""
 - 최근 {0}의 동향과 이슈를 정리하시오. 추가적인 설명 없이 목록화하여 정리하시오.
@@ -46,11 +46,8 @@ $$
     }
 
 
-@router.get("/", summary='')
+@router.get("/finance", summary='')
 def get_finance_data(query: str):
-    from openai import OpenAI
-
-
     result = generate_response("""
 - 당신은 친절한 금융 전문가입니다. 당신이 답할 금융 초보의 질문은 %% %% 사이에 있습니다..
 - 답변을 친절히 작성하여 && && 기호 사이에 정리하시오.
@@ -58,6 +55,22 @@ def get_finance_data(query: str):
 %%
 %%
 """.format(query, "."))
+
+    return {
+        "result": result
+    }
+
+
+@router.get("/news", summary='')
+def get_daily_news():
+    result = generate_response("""
+- $$ $$ 기호 안의 뉴스 내용을 요약하여 && && 기호 사이에 정리하시오.
+- 각각의 뉴스마다 해당 사건이 금융계에 미칠 영향을 예상하여 추가하십시오
+대답 외에 다른 말을 작성하지 마십시오
+%%
+{0}
+%%
+""".format("."))
 
     return {
         "result": result

@@ -31,5 +31,6 @@ class EntityCreate(BaseModel):
     class Config:
         orm_mode = True
 
+
 class Dashboard(BaseModel):
-    dashboard_queue: list[Entity] = []
+    dashboard_queue: list[str] = []
