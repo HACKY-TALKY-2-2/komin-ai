@@ -21,6 +21,6 @@ class News(Base):
     content = Column(Text, nullable=False)
     url = Column(String, nullable=False)
 
-    entity_name = Column(Integer, ForeignKey('entity.name'))
-    entity = relationship("Entity", back_populates="news")
+    entity_id = Column(Integer, ForeignKey('entity.id'))
+    entity = relationship("Entity", backref="news")
 

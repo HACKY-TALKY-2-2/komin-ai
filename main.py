@@ -4,8 +4,11 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 app = fastapi.FastAPI()
-app.add_middlewareCORSMiddleware(
+app.add_middleware(
+    CORSMiddleware,
         allow_origins=["*"],
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+app.include_router(dashboard_route.router, prefix='/dashboard')
