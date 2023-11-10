@@ -55,4 +55,4 @@ jobs:
         script: |
           docker stop $(docker ps -a -q)
           docker pull invalidid56/komin
-          docker run -d -p 80:8000 invalidid56/komin
+          docker run -d -p 80:8000 -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} invalidid56/komin
