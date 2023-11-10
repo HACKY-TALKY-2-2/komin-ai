@@ -12,4 +12,3 @@ app.add_middleware(
     )
 
 app.include_router(dashboard_route.router, prefix='/dashboard')
-app.include_router(analyze_route.router, prefix='/analyze')
