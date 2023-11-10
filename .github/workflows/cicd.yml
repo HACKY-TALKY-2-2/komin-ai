@@ -15,7 +15,7 @@ jobs:
     - uses: mr-smithers-excellent/docker-build-push@v6  # Docker Image Build
       name: Build & push Docker image
       with:
-        image: docker-hub-repo/komin
+        image: invalidid56/komin
         tags: komin, latest
         registry: docker.io
         dockerfile: Dockerfile
