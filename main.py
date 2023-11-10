@@ -1,5 +1,5 @@
 import fastapi
-from route import dashboard_route, analyze_route
+from route import dashboard_route
 from fastapi.middleware.cors import CORSMiddleware
 
 
