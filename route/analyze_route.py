@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 import openai
 import os
 from entity.dashboard_entity import Dashboard, EntityCreate, News
+import pandas as pd
 
 
 router = APIRouter(prefix='/analyze')
@@ -63,6 +64,7 @@ def get_finance_data(query: str):
 
 @router.get("/news", summary='')
 def get_daily_news():
+
     result = generate_response("""
 - $$ $$ 기호 안의 뉴스 내용을 요약하여 && && 기호 사이에 정리하시오.
 - 각각의 뉴스마다 해당 사건이 금융계에 미칠 영향을 예상하여 추가하십시오
@@ -70,7 +72,8 @@ def get_daily_news():
 %%
 {0}
 %%
-""".format("."))
+""".format('\n'.join(pd.read_csv('crawler/google_news_채널톡_ko.csv')['title'].to_list()[:15])
+))
 
     return {
         "result": result
