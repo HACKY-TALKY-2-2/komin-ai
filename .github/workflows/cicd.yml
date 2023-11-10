@@ -49,4 +49,4 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
           docker pull invalidid56/komin
-          docker run -d -p 8000:80 --name komin invalidid56/komin
+          docker run -d -p 80:8000 --name komin invalidid56/komin
